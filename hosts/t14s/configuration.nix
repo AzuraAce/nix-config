@@ -1,0 +1,238 @@
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ config, lib, pkgs, inputs, ... }:
+{
+  nixpkgs.config.allowUnfree = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.variables = {
+  	XCURSOR_SIZE = "24";
+  };
+
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ./vm.nix
+      ./nix-ld.nix
+      # ./lanzaboote.nix
+
+       # Moved to /etc/nixos/flake.nix
+       # ./unstable.nix
+    ];
+
+  # Enable Flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  networking.hostName = "t14s"; # Define your hostname.
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  # BOOT
+  # Use the systemd-boot EFI boot loader.
+  # Lanzaboote currently replaces the systemd-boot module.
+  # This setting is usually set to true in configuration.nix
+  # generated at installation time. So we force it to false
+  # for now.
+  boot.loader = {
+  	efi = {
+		canTouchEfiVariables = true;
+	};
+	systemd-boot = {
+		enable = lib.mkForce false;
+	};
+	grub = {
+		enable = lib.mkForce true;
+		device = "nodev";
+		useOSProber = true;
+		efiSupport = true;
+	};
+  };
+
+  # Enable Fingerprint reader
+  services.fprintd.enable = true;
+  security.pam.services.login.fprintAuth = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.sddm.fprintAuth = true;
+  security.pam.services.waylock.fprintAuth = true;
+
+  # TLP Laptop Power Saving
+  services.tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+	RADEON_DPM_PERF_LEVEL_ON_AC="auto";
+	RADEON_DPM_PERF_LEVEL_ON_BAT="auto";
+
+       #Optional helps save long term battery health
+       START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+       STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+
+      };
+  };
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "de";
+  #   useXkbConfig = true; # use xkb.options in tty.
+  };
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+  	enable = true;
+  	desktopManager = {
+		xfce.enable = true;
+	};
+  }; 
+
+  # Configure keymap in X11
+  services.xserver.xkb.layout = "de";
+  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound.
+  # hardware.pulseaudio.enable = true;
+  # OR
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.libinput.enable = true;
+
+  # Enable QT
+  qt.enable = true;
+
+  # Enable SDDM
+  services.displayManager = {
+	  defaultSession = "hyprland";
+		  sddm = {
+			  enable = true;
+			  wayland.enable = true;
+			  theme = "${import ./sddm-themes.nix { inherit pkgs; }}";
+			  settings = {
+				    Theme = {
+			    		CursorTheme = "Adwaita";
+			    	    };
+			  };
+	  };
+  };
+
+  # Enable Hyprland
+  programs.hyprland = {
+  	enable = true;
+        xwayland.enable = true;
+  };
+
+  programs.zsh.enable = true;
+  
+  # Enable tailscale
+  services.tailscale.enable = true;
+  services.davfs2.enable = true;
+
+  services.udev.extraRules = ''
+	SUBSYSTEM=="hidraw", ATTRS{idVendor}=="31e3", TAG+="uaccess"
+
+SUBSYSTEM=="usb", ATTRS{idVendor}=="31e3", TAG+="uaccess"
+  '';
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.oliver = {
+    isNormalUser = true;
+    home="/home/oliver";
+    shell=pkgs.zsh;
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+  };
+
+  # Unlock locked session
+  security.pam.services.hyprlock = {};
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    home-manager
+    foot
+    emacs-git-pgtk
+    vim  
+    firefox
+    wget
+    xwayland
+    gnutar
+    gnumake
+    udiskie
+    mpd
+    libnotify
+    brightnessctl
+    gcc
+    unzip
+    tree-sitter
+    go
+    fd
+    yarn
+    gnumake
+    nodejs
+    nerdfonts
+    killall
+    wl-clipboard
+    jq
+    font-awesome
+    psutils
+    xorg.libxcb
+    xorg.libxcb.dev
+    libsForQt5.qt5.qtquickcontrols2
+    libsForQt5.qt5.qtgraphicaleffects
+    libsForQt5.qt5.qtsvg
+    zlib
+    fzf
+    gdb
+    pulseaudio
+    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+    vscode-fhs
+    exfat
+    niv
+    xdotool
+    wl-clipboard
+  ];
+
+     services.emacs.package = pkgs.emacs-pgtk;
+
+     nixpkgs.overlays = [
+          (final: prev: {
+          	dwl = prev.dwl.overrideAttrs (old: { src = /home/oliver/.config/dwl; });
+          })
+	  (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+      sha256 = "128yjgyd96cba338qdl1z9igfnija2mgy52s789544k4y9v5yn1y";
+}))
+     ];
+
+  hardware.graphics.enable = true;
+ 
+  # Enable fonts
+  fonts.packages = with pkgs; [
+    nerdfonts
+    font-awesome
+  ];
+
+  system.stateVersion = "24.05"; # Did you read the comment?
+
+}
+
