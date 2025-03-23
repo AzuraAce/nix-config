@@ -75,11 +75,28 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1740367490,
+        "narHash": "sha256-WGaHVAjcrv+Cun7zPlI41SerRtfknGQap281+AakSAw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0196c0175e9191c474c26ab5548db27ef5d34b05",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "rose-pine-hyprcursor": "rose-pine-hyprcursor",
+        "thealtf4stream-nvim": "thealtf4stream-nvim",
         "unstable": "unstable"
       }
     },
@@ -130,6 +147,24 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "thealtf4stream-nvim": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1740547522,
+        "narHash": "sha256-Rv6f9dWHJorQec7tEp26CeCmCjI3C+Dj8I/RPGCxOzE=",
+        "owner": "ALT-F4-LLC",
+        "repo": "thealtf4stream.nvim",
+        "rev": "a19eae79896168107715f6f9993bc0b4d87b618e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ALT-F4-LLC",
+        "repo": "thealtf4stream.nvim",
         "type": "github"
       }
     },

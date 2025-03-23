@@ -1,5 +1,5 @@
 {
-  description = "Your new nix config";
+  description = "My Nixos Config";
 
   inputs = {
     # Nixpkgs
@@ -12,7 +12,7 @@
     # Other
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
-
+    thealtf4stream-nvim.url = "github:ALT-F4-LLC/thealtf4stream.nvim";
   };
 
   outputs = {
@@ -23,26 +23,20 @@
   } @ inputs: let
     inherit (self) outputs;
   in {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      # FIXME replace with your hostname
       t14s = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        # > Our main nixos configuration file <
+
         modules = [./hosts/t14s/configuration.nix];
       };
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      # FIXME replace with your username@hostname
       "oliver@t14s" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
-        # > Our main home-manager configuration file <
-        modules = [./users/oliver/home.nix];
+
+        modules = [./home-manager/users/oliver/home.nix];
       };
     };
   };
