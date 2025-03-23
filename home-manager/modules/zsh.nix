@@ -26,7 +26,7 @@
       logout_oliver = "sudo pkill -KILL -u oliver";
       dotfiles = "git --git-dir=/home/oliver/.dotfiles --work-tree=/";
       icat = "kitten icat";
-      nvim = "nix run github:jordanisaacs/neovim-flake --no-write-lock-file";
+      nvim = "nix run ~/.config/nvim/";
       ff = "fastfetch";
       zathura = "zathura --fork";
     };
