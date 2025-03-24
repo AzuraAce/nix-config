@@ -10,6 +10,16 @@
   home.username = "oliver";
   home.homeDirectory = "/home/oliver";
 
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
+    x11 = {
+      enable = true;
+      defaultCursor = "Adwaita";
+    };
+  };
+
   home.packages = with pkgs; [
     vimPlugins.vim-plug
     wmenu

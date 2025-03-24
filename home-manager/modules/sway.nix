@@ -6,6 +6,7 @@ in
         wayland.windowManager.sway = {
                 enable = true;
                 xwayland = true;
+                wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
 
                 config = {
                         output = {
@@ -61,6 +62,12 @@ in
                            "${modifier}+Shift+q" = "kill";
                            "${modifier}+d"       = "exec ${pkgs.wofi}/bin/wofi";
                            "${modifier}+e"       = "exec ${pkgs.nemo}/bin/nemo";
+                           "XF86MonBrightnessDown" = "exec swayosd-client --brightness lower";
+                           "XF86MonBrightnessUp" = "exec swayosd-client --brightness raise";
+                           "xf86AudioMute" = "exec swayosd-client --output-volume mute-toggle";
+                           "xf86AudioLowerVolume" = "exec swayosd-client --output-volume lower";
+                           "xf86AudioRaiseVolume" = "exec swayosd-client --output-volume raise";
+                           "xf86AudioMicMute" = "exec swayosd-client --input-volume mute-toggle";
                         };
                         
                         startup = [
