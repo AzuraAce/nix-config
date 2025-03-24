@@ -219,7 +219,14 @@ in {
         box-shadow: inset 0 -3px #f5f5f5;
       }
 
+      /* Hyprland active workspace */
       #workspaces button.active {
+        background-color: #64727d;
+        /* box-shadow: inset 0 -3px #f5f5f5; */
+      }
+
+      /* Sway ative workspace */
+      #workspaces button.focused {
         background-color: #64727d;
         /* box-shadow: inset 0 -3px #f5f5f5; */
       }
@@ -365,6 +372,7 @@ in {
 
       #tray {
         background-color: #2980b9;
+        margin-right: 10px;
       }
 
       #idle_inhibitor {

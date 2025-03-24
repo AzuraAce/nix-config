@@ -10,6 +10,8 @@
   home.username = "oliver";
   home.homeDirectory = "/home/oliver";
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
     vimPlugins.vim-plug
     wmenu
@@ -38,6 +40,7 @@
     libreoffice
     texliveFull
     pfetch-rs
+    discord
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
