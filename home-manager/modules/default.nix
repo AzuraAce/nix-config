@@ -9,5 +9,7 @@
     ./sway.nix
     ./cursor.nix
     ./hypridle.nix
+    ./swayidle.nix
+    ./swaync.nix
   ];
 }

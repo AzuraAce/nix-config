@@ -39,6 +39,7 @@ in
                         colors = {
                                 focused =  lib.mkOptionDefault {
                                   childBorder =  lib.mkForce "#7FBBE5";
+                                  indicator =  lib.mkForce "#7FBBE5";
                                 };
                         };
 
@@ -75,6 +76,8 @@ in
                           ];
                         };
 
+                        defaultWorkspace = "workspace number 1";
+
                         # set Mod to Windows key 
                         modifier = "Mod4";
 
@@ -95,8 +98,16 @@ in
                         
                         startup = [
                            { command = "${term} --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false"; }
-                           { command = "zsh /home/oliver/scripts/hypr/start.sh"; }
+                           # { command = "zsh /home/oliver/scripts/sway/start.sh"; }
+                           { command = "${pkgs.udiskie} &"; }
+                           { command = "${pkgs.waybar} &"; }
+                           { command = "dunst &"; }
+                           { command = "${pkgs.calcurse} --daemon &"; }
+                           { command = "${pkgs.swaybg} -i /home/oliver/wallpapers/1630505.jpg &"; }
+                           { command = "exec swayosd-server"; }
                         ];
                 };
+
+                # extraConfig = "bindswitch --reload --locked lid:on exec hyprlock";
         };
 }
