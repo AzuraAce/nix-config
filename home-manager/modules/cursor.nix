@@ -2,9 +2,12 @@
 {
   home.pointerCursor = {
     gtk.enable = true;
-    # package = inputs.rose-pine-hyprcursor;
-    package = pkgs.phinger-cursors;
-    name = "Phinger-cursors-light";
-    size = 48;
-  }; 
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
+    x11 = {
+      enable = true;
+      defaultCursor = "Adwaita";
+    };
+  };
 }

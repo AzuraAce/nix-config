@@ -7,5 +7,7 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./sway.nix
+    ./cursor.nix
+    ./hypridle.nix
   ];
 }

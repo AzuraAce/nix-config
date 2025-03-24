@@ -35,6 +35,12 @@ in
                         focus = {
                           followMouse = "yes";
                         };
+                        
+                        colors = {
+                                focused =  lib.mkOptionDefault {
+                                  childBorder =  lib.mkForce "#7FBBE5";
+                                };
+                        };
 
                         input = {
                           "type:touchpad" = {
