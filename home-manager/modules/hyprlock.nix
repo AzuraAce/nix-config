@@ -42,7 +42,7 @@
         check_color = "rgb(204, 136, 34)";
         placeholder_text = "<i><span foreground=\"##cdd6f4\">Input Password...</span></i>";
         hide_input = false;
-        position = ["0" "-200"];
+        position = "0, -200";
         halign = "center";
         valign = "center";
       };
