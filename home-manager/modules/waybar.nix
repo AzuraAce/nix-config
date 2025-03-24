@@ -10,7 +10,7 @@ in {
         margin = "5";
 
         # Choose the order of the modules
-        modules-left = ["custom/logo" "hyprland/workspaces" "hyprland/window" "custom/media"];
+        modules-left = ["custom/logo" "hyprland/workspaces" "hyprland/window" "sway/workspaces" "sway/window" "custom/media"];
         modules-center = ["clock"];
         modules-right = ["pulseaudio" "network" "backlight" "cpu" "memory" "battery" "tray"];
 
@@ -22,6 +22,18 @@ in {
         };
 
         "hyprland/window" = {
+          format = "{title}";
+          icon = true;
+          icon-size = 24;
+        };
+
+        "sway/workspaces" = {
+          disable-scroll = true;
+          all-outputs = true;
+          format = "{name}";
+        };
+        
+        "sway/window" = {
           format = "{title}";
           icon = true;
           icon-size = 24;
@@ -181,7 +193,7 @@ in {
         min-height: 0;
       }
 
-      window#waybar {
+       window#waybar {
         background-color: rgba(18, 18, 18, 0.75);
         color: #f5f5f5;
         border-bottom: 1px solid #181825;

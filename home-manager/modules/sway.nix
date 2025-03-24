@@ -45,13 +45,19 @@ in
                           };
                         };
 
+                        bars = [
+                          {
+                            mode = "invisible";
+                          }
+                        ];
+
                         # set Mod to Windows key 
                         modifier = "Mod4";
 
                         keybindings = let
                            modifier = config.wayland.windowManager.sway.config.modifier;
                         in lib.mkOptionDefault {
-                           "${modifier}+Return"  = "exec ${term}";
+                           "${modifier}+Shift+Return"  = "exec ${term}";
                            "${modifier}+Shift+q" = "kill";
                            "${modifier}+d"       = "exec ${pkgs.wofi}/bin/wofi";
                            "${modifier}+e"       = "exec ${pkgs.nemo}/bin/nemo";
