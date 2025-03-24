@@ -42,7 +42,6 @@
     pfetch-rs
     discord
     spotify
-    spotify-tray
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
