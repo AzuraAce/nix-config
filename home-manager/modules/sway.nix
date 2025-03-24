@@ -58,6 +58,23 @@ in
                           }
                         ];
 
+                        floating = {
+                          criteria = [
+                          {
+                            app_id = "ghostty.float";
+                          }
+                          {
+                            app_id = "org.pulseaudio.pavucontrol";
+                          }
+                          {
+                            app_id = "discord";
+                          }
+                          {
+                            app_id = "spotify";
+                          }
+                          ];
+                        };
+
                         # set Mod to Windows key 
                         modifier = "Mod4";
 
