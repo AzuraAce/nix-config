@@ -15,6 +15,7 @@
     wmenu
     swayosd
     brave
+    firefox
     zathura
     slurp
     grim
