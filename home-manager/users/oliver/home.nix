@@ -36,6 +36,7 @@
     udiskie
     libreoffice
     texliveFull
+    pfetch-rs
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

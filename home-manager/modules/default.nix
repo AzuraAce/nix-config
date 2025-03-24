@@ -6,5 +6,6 @@
     ./wlogout.nix
     ./hyprland.nix
     ./hyprlock.nix
+    ./sway.nix
   ];
 }

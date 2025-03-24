@@ -12,5 +12,6 @@
     ./tlp.nix
     ./fonts.nix
     ./services.nix
+    ./sway.nix
   ];
 }
