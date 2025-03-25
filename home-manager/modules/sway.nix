@@ -90,7 +90,7 @@ in
                            "${modifier}+Shift+Return"  = "exec ${term}";
                            "${modifier}+Shift+q" = "kill";
                            "${modifier}+d"       = "exec ${pkgs.wofi}/bin/wofi";
-                           "${modifier}+e"       = "exec ${pkgs.nemo}/bin/nemo";
+                           "${modifier}+Shift+e"       = "exec ${pkgs.nemo}/bin/nemo";
                            "XF86MonBrightnessDown" = "exec swayosd-client --brightness lower";
                            "XF86MonBrightnessUp" = "exec swayosd-client --brightness raise";
                            "xf86AudioMute" = "exec swayosd-client --output-volume mute-toggle";
