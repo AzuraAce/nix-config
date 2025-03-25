@@ -14,6 +14,8 @@ in
 
     programs.firefox = lib.mkIf (lib.elem "firefox" config.browsers.selection) {
       enable = true;
+      
+      # List of Policies at: https://mozilla.github.io/policy-templates/
       policies = {
         Extensions = { 
           Install = [

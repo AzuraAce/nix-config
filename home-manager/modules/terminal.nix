@@ -19,6 +19,8 @@ in
 
       settings = {
         main = {
+          font = "monospace:size=9";
+          box-drawings-uses-font-glyphs = "yes";
           dpi-aware = "yes";
         };
         colors = {

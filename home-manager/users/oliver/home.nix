@@ -26,7 +26,6 @@
     grim
     tree
     neovim
-    kitty
     dunst
     nemo
     swaybg
