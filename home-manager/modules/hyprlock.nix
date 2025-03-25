@@ -49,10 +49,9 @@ in
         valign = "center";
       };
 
-      # DATE
       label = [
+        # DATE
         {
-          monitor = "";
           text = "cmd[update:1000] echo \"$(date +\"%A, %B %d\")\"";
           color = "rgba(242, 243, 244, 0.75)";
           font_size = 22;
@@ -63,8 +62,7 @@ in
         }
         # TIME
         {
-          monitor = "";
-          text = "cmd[update:1000] echo \"\$(date +\"%-I:%M\")\"";
+          text = "cmd[update:1000] echo \"$(date +%-I:%M)\"";
           color = "rgba(242, 243, 244, 0.75)";
           font_size = 95;
           font_family = "JetBrains Mono Extrabold";
@@ -72,7 +70,7 @@ in
           halign = "center";
           valign = "center";
         }
-        {
+        /* {
           monitor = "";
           text = "cmd[update:1000] echo \"$(/home/justin/Documents/Scripts/whatsong.sh)\"";
           color = "${foreground}";
@@ -81,7 +79,7 @@ in
           position = "0, 50";
           halign = "center";
           valign = "bottom";
-        }
+        } */
         {
           monitor = "";
           text = "cmd[update:1000] echo \"$USER\"";
@@ -92,7 +90,7 @@ in
           halign = "center";
           valign = "top";
         }
-        {
+        /* {
           monitor = "";
           text = "cmd[update:1000] echo \"$(/home/justin/Documents/Scripts/battery.sh)\"";
           color = "${foreground}";
@@ -101,8 +99,8 @@ in
           position = "-90, -10";
           halign = "right";
           valign = "top";
-        }
-        {
+        } */
+        /* {
           monitor = "";
           text = "cmd[update:1000] echo \"$(/home/justin/Documents/Scripts/network-status.sh)\"";
           color = "${foreground}";
@@ -111,7 +109,7 @@ in
           position = "-20, -10";
           halign = "right";
           valign = "top";
-        }
+        } */
       ];
     };
   };

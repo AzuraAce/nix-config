@@ -43,6 +43,7 @@
     discord
     spotify
     valgrind
+    hyprlock
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -84,6 +85,8 @@
     gnome-keyring = {enable = true;};
     # syncthing = syncthingConfig;
   };
+
+  gtk.iconTheme.package = pkgs.whitesur-icon-theme;
 
   programs = {
     # Let Home Manager install and manage itself.

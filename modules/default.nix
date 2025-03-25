@@ -13,5 +13,6 @@
     ./fonts.nix
     ./services.nix
     ./sway.nix
+    ./security.nix
   ];
 }

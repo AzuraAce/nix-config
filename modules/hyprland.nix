@@ -4,6 +4,4 @@
     withUWSM = false;
     xwayland.enable = true;
   };
-
-  security.pam.services.hyprlock = {};
 }

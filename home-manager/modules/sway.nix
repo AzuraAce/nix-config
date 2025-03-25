@@ -73,6 +73,9 @@ in
                           {
                             app_id = "spotify";
                           }
+                          {
+                            app_id = "nemo";
+                          }
                           ];
                         };
 
@@ -99,14 +102,9 @@ in
                         startup = [
                            { command = "${term} --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false"; }
                            { command = "zsh /home/oliver/scripts/sway/start.sh"; }
-                           # { command = "${pkgs.udiskie}"; }
-                           # { command = "dunst"; }
-                           # { command = "${pkgs.calcurse} --daemon"; }
-                           # { command = "${pkgs.swaybg} -i /home/oliver/wallpapers/1630505.jpg"; }
-                           # { command = "exec swayosd-server"; }
                         ];
                 };
 
-                # extraConfig = "bindswitch --reload --locked lid:on exec hyprlock";
+                extraConfig = "bindswitch --reload --locked lid:on exec hyprlock";
         };
 }
