@@ -1,15 +1,14 @@
 {
   imports = [
-    ./ghostty.nix
     ./zsh.nix
     ./waybar.nix
     ./wlogout.nix
-    ./hyprland.nix
     ./hyprlock.nix
-    ./sway.nix
     ./cursor.nix
     ./hypridle.nix
     ./swayidle.nix
     ./swaync.nix
+    ./windowManager.nix
+    ./terminal.nix
   ];
 }

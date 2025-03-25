@@ -1,5 +1,6 @@
 {pkgs, ...}: let
-  floating_term = "${pkgs.ghostty}/bin/ghostty --class=ghostty.float --background-opacity=0.95";
+  floating_term = "${pkgs.foot}/bin/foot -a foot.float -o colors.alpha=0.95";
+  # floating_term = "${pkgs.ghostty}/bin/ghostty --class=ghostty.float --background-opacity=0.95";
 in {
   programs.waybar = {
     enable = true;

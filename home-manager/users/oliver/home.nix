@@ -86,8 +86,6 @@
     # syncthing = syncthingConfig;
   };
 
-  gtk.iconTheme.package = pkgs.whitesur-icon-theme;
-
   programs = {
     # Let Home Manager install and manage itself.
     home-manager = {
