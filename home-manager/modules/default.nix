@@ -10,5 +10,6 @@
     ./swaync.nix
     ./windowManager.nix
     ./terminal.nix
+    ./browser.nix
   ];
 }

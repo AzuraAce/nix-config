@@ -5,7 +5,18 @@ let
   file_manager = "${pkgs.nemo}/bin/nemo";
 in 
 {
-  wayland.windowManager.sway = {
+  options.WMs = {
+    enable = lib.mkEnableOption "Enable WM selection module";
+
+    selection = lib.mkOption {
+      type = lib.types.listOf (lib.types.enum [ "sway" "hyprland" ]);
+      default = [ "sway" ];
+      description = "List of WMs to install.";
+    };
+  };
+  
+  config = {
+  wayland.windowManager.sway = lib.mkIf (lib.elem "sway" config.WMs.selection) {
     enable = true;
     xwayland = true;
     wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
@@ -110,7 +121,7 @@ in
     extraConfig = "bindswitch --reload --locked lid:on exec hyprlock";
   };
 
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland = lib.mkIf (lib.elem "hyprland" config.WMs.selection){
     enable = true;
     xwayland.enable = true;
 
@@ -298,5 +309,7 @@ in
         "float, class:org.pulseaudio.pavucontrol"
       ];
     };
+  };
+
   };
 }

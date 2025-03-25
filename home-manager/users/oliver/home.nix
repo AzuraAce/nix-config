@@ -12,12 +12,15 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  WMs.selection = [ "sway" "hyprland" ];
+  browsers.selection = [ "firefox" "brave" ];
+  terminals.selection = [ "foot" ];
+
   home.packages = with pkgs; [
     vimPlugins.vim-plug
     wmenu
     swayosd
     brave
-    firefox
     zathura
     slurp
     grim
