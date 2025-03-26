@@ -10,6 +10,6 @@
     ./windowManager.nix
     ./terminal.nix
     ./browser.nix
-    ./services
+    ./services.nix
   ];
 }
