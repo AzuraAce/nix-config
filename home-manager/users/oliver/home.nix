@@ -42,10 +42,13 @@
     libreoffice
     texliveFull
     pfetch-rs
+    owofetch
     discord
     spotify
     valgrind
     hyprlock
+    code-cursor
+    wl-clipboard
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

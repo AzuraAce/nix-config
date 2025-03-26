@@ -1,8 +1,16 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   background-opacity = "0.8";
   background-color = "1a1b26";
   theme = "catppuccin-mocha";
+  catppuccinDrv = pkgs.fetchurl {
+    url = "https://codeberg.org/dnkl/foot/raw/branch/master/themes/catppuccin-mocha";
+    hash = "sha256-ueExhx/4fjw/SapR69xIIzsSm1D31P1LTLcQz/si0Wo=";
+  };
+  nordDrv = pkgs.fetchurl {
+    url = "https://codeberg.org/dnkl/foot/raw/branch/master/themes/nord";
+    hash = "sha256-Dm02rSMML5tkEyzGMLavSH9oP02An+DOVaNUD0zQtG4=";
+  };
 in 
 {
   options.terminals = {
@@ -20,8 +28,13 @@ in
       settings = {
         main = {
           font = "monospace:size=9";
-          box-drawings-uses-font-glyphs = "yes";
+          box-drawings-uses-font-glyphs = "no";
           dpi-aware = "yes";
+          include = "${nordDrv}";
+        };
+        url = {
+          launch = "xdg-open \${url}";
+          protocols = "http, https, ftp, ftps, file";
         };
         colors = {
           alpha = "${background-opacity}";

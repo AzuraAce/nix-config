@@ -7,9 +7,9 @@
     ./cursor.nix
     ./hypridle.nix
     ./swayidle.nix
-    ./swaync.nix
     ./windowManager.nix
     ./terminal.nix
     ./browser.nix
+    ./services
   ];
 }
