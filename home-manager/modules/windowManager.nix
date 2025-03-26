@@ -78,18 +78,20 @@ in
           app_id = "ghostty.float";
         }
         {
+          app_id = "foot.float";
+        }
+        {
           app_id = "org.pulseaudio.pavucontrol";
-        }
-        {
-          app_id = "discord";
-        }
-        {
-          app_id = "spotify";
         }
         {
           app_id = "nemo";
         }
         ];
+      };
+
+      assigns = {
+        "9" = [{ app_id = "spotify"; }];
+        "8" = [{ app_id = "discord"; }];
       };
 
       defaultWorkspace = "workspace number 1";

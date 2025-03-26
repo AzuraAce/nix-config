@@ -11,7 +11,7 @@ in {
         margin = "5";
 
         # Choose the order of the modules
-        modules-left = ["custom/logo" "hyprland/workspaces" "hyprland/window" "sway/workspaces" "sway/window" "custom/media"];
+        modules-left = ["custom/logo" "hyprland/workspaces" "hyprland/window" "sway/mode" "sway/workspaces" "sway/window" "custom/media"];
         modules-center = ["clock"];
         modules-right = ["pulseaudio" "network" "backlight" "cpu" "memory" "battery" "tray"];
 
@@ -27,6 +27,11 @@ in {
           icon = true;
           icon-size = 24;
         };
+
+        "sway/mode" = {
+          format = " {}";
+          max-length = 50;
+        }; 
 
         "sway/workspaces" = {
           disable-scroll = true;
@@ -72,6 +77,7 @@ in {
         "tray" = {
           icon-size = 21;
           spacing = 10;
+          show-passive-items = true;
         };
 
         "clock" = {
@@ -100,14 +106,14 @@ in {
           interval = 10;
           format = "{}% ";
           max-length = 10;
-          on-click = "${floating_term} --title=htop -e \"htop -s PERCENT_CPU\"";
+          on-click = "${floating_term} --title=htop -e ${pkgs.htop}/bin/htop -s PERCENT_CPU";
         };
 
         "memory" = {
           interval = 30;
           format = "{}% ";
           max-length = 10;
-          on-click = "${floating_term} --title=htop -e \"htop -s PERCENT_MEM\"";
+          on-click = "${floating_term} --title=htop -e ${pkgs.htop}/bin/htop -s PERCENT_MEM";
         };
 
         "temperature" = {
