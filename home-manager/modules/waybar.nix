@@ -1,6 +1,9 @@
 {pkgs, ...}: let
   floating_term = "${pkgs.foot}/bin/foot -a foot.float -o colors.alpha=0.95";
   # floating_term = "${pkgs.ghostty}/bin/ghostty --class=ghostty.float --background-opacity=0.95";
+ 
+  /* rgba(18, 18, 18, 0.75) */
+  background-color = "rgba(46,52,64, 0.75)";
 in {
   programs.waybar = {
     enable = true;
@@ -105,14 +108,12 @@ in {
         "cpu" = {
           interval = 10;
           format = "{}% ";
-          max-length = 10;
           on-click = "${floating_term} --title=htop -e ${pkgs.htop}/bin/htop -s PERCENT_CPU";
         };
 
         "memory" = {
           interval = 30;
           format = "{}% ";
-          max-length = 10;
           on-click = "${floating_term} --title=htop -e ${pkgs.htop}/bin/htop -s PERCENT_MEM";
         };
 
@@ -195,20 +196,19 @@ in {
         font-family: "Roboto Mono Medium", Helvetica, Arial, sans-serif;
 
         /* adjust font-size value to your liking: */
-        font-size: 13px;
+        font-size: 15px;
 
         min-height: 0;
       }
 
        window#waybar {
-        background-color: rgba(18, 18, 18, 0.75);
+        background-color: ${background-color};
         color: #f5f5f5;
-        border-bottom: 1px solid #181825;
         border-radius: 10px;
       }
 
       window#waybar.empty {
-        background-color: rgba(18, 18, 18, 0.75);
+        background-color: ${background-color};
       }
 
       #workspaces button {
