@@ -11,5 +11,6 @@
     ./terminal.nix
     ./browser.nix
     ./services.nix
+    ./programs.nix
   ];
 }
