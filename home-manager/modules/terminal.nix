@@ -27,7 +27,7 @@ in
 
       settings = {
         main = {
-          font = "monospace:size=9";
+          font = "monospace:size=10";
           box-drawings-uses-font-glyphs = "no";
           dpi-aware = "yes";
           include = "${nordDrv}";
