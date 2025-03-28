@@ -6,4 +6,8 @@
       cover_img_scale = 3;
     };
   };
+  # Convert LaTeX to Markdown and vice versa
+  programs.pandoc = {
+    enable = true;
+  };
 }
