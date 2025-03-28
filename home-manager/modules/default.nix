@@ -1,16 +1,14 @@
 {
   imports = [
-    ./zsh.nix
-    ./waybar.nix
-    ./wlogout.nix
-    ./hyprlock.nix
+    ./programs/zsh.nix
+    ./programs/waybar.nix
+    ./programs/browser.nix
+    ./programs/terminal.nix
+    ./programs/programs.nix
+    ./services/hypridle.nix
+    ./services/swayidle.nix
+    ./services/services.nix
     ./cursor.nix
-    ./hypridle.nix
-    ./swayidle.nix
     ./windowManager.nix
-    ./terminal.nix
-    ./browser.nix
-    ./services.nix
-    ./programs.nix
   ];
 }

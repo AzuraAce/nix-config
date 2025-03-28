@@ -1,12 +1,32 @@
-{
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
 let
   foreground = "rgb(cdd6f4)";
 in 
 {
+  programs.spotify-player = {
+    enable = true;
+    
+    settings = {
+      cover_img_scale = 3;
+    };
+  };
+  # Convert LaTeX to Markdown and vice versa
+  programs.pandoc = {
+    enable = true;
+  };
+  programs.zathura = {
+    highlight-active-color = "#ffffff";
+    highlight-transparency = 1;
+    default-bg = "rgba(0,0,0,0.7)";
+    recolor-lightcolor = "rgba(0,0,0,0)";
+    guioptions = "none";
+  };
+  programs.nnn = {
+    enable = true;
+  };
+  programs.wlogout = {
+    enable = true;
+  };
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -70,16 +90,6 @@ in
           halign = "center";
           valign = "center";
         }
-        /* {
-          monitor = "";
-          text = "cmd[update:1000] echo \"$(/home/justin/Documents/Scripts/whatsong.sh)\"";
-          color = "${foreground}";
-          font_size = 18;
-          font_family = "Metropolis Light, Font Awesome 6 Free Solid";
-          position = "0, 50";
-          halign = "center";
-          valign = "bottom";
-        } */
         {
           monitor = "";
           text = "cmd[update:1000] echo \"$USER\"";
@@ -90,26 +100,6 @@ in
           halign = "center";
           valign = "top";
         }
-        /* {
-          monitor = "";
-          text = "cmd[update:1000] echo \"$(/home/justin/Documents/Scripts/battery.sh)\"";
-          color = "${foreground}";
-          font_size = 24;
-          font_family = "JetBrains Mono";
-          position = "-90, -10";
-          halign = "right";
-          valign = "top";
-        } */
-        /* {
-          monitor = "";
-          text = "cmd[update:1000] echo \"$(/home/justin/Documents/Scripts/network-status.sh)\"";
-          color = "${foreground}";
-          font_size = 24;
-          font_family = "JetBrains Mono";
-          position = "-20, -10";
-          halign = "right";
-          valign = "top";
-        } */
       ];
     };
   };

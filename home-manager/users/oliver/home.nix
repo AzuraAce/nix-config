@@ -21,7 +21,6 @@
     wmenu
     swayosd
     brave
-    zathura
     slurp
     grim
     tree
