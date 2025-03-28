@@ -15,11 +15,15 @@ in
     enable = true;
   };
   programs.zathura = {
-    highlight-active-color = "#ffffff";
-    highlight-transparency = 1;
-    default-bg = "rgba(0,0,0,0.7)";
-    recolor-lightcolor = "rgba(0,0,0,0)";
-    guioptions = "none";
+    enable = true;
+
+    options = {
+      highlight-active-color = "#ffffff";
+      highlight-transparency = 1;
+      default-bg = "rgba(0,0,0,0.7)";
+      recolor-lightcolor = "rgba(0,0,0,0)";
+      guioptions = "none";
+    };
   };
   programs.nnn = {
     enable = true;
