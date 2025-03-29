@@ -1,35 +1,32 @@
 { config, lib, pkgs, ... }:
-let
-in
 {
-  options.browsers = {
-    selection = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum [ "firefox" "brave" ]);
-      default = [ "firefox" ];
-      description = "List of browsers to install.";
-    };
-  };
+    programs = {
+      firefox = {
+        enable = true;
+        
+        # List of Policies at: https://mozilla.github.io/policy-templates/
+        policies = {
+          Extensions = { 
+            Install = [
+              "https://addons.mozilla.org/firefox/downloads/file/4458450/ublock_origin-1.63.2.xpi"
+              "https://addons.mozilla.org/firefox/downloads/file/4424459/reddit_enhancement_suite-5.24.8.xpi"
+            ]; 
+          };
+        };
+      };
 
-  config = {
+      brave = {
+        enable = true;
+      };
 
-    programs.firefox = lib.mkIf (lib.elem "firefox" config.browsers.selection) {
-      enable = true;
-      
-      # List of Policies at: https://mozilla.github.io/policy-templates/
-      policies = {
-        Extensions = { 
-          Install = [
-            "https://addons.mozilla.org/firefox/downloads/file/4458450/ublock_origin-1.63.2.xpi"
-            "https://addons.mozilla.org/firefox/downloads/file/4424459/reddit_enhancement_suite-5.24.8.xpi"
-          ]; 
+      librewolf = {
+        enable = true;
+        settings = {
+          # higher refresh rate than 60 hz
+          "privacy.resistFingerprinting" = false;
+          "identity.fxaccounts.enabled" = true;
         };
       };
     };
-
-    programs.brave = lib.mkIf (lib.elem "brave" config.browsers.selection) {
-      enable = true;
-    };
-    
-  };
 }
 

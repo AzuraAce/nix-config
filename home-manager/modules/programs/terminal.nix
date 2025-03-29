@@ -3,6 +3,7 @@ let
   background-opacity = "0.8";
   background-color = "1a1b26";
   theme = "catppuccin-mocha";
+
   catppuccinDrv = pkgs.fetchurl {
     url = "https://codeberg.org/dnkl/foot/raw/branch/master/themes/catppuccin-mocha";
     hash = "sha256-ueExhx/4fjw/SapR69xIIzsSm1D31P1LTLcQz/si0Wo=";
@@ -13,16 +14,9 @@ let
   };
 in 
 {
-  options.terminals = {
-    selection = lib.mkOption {
-      type = lib.types.listOf ( lib.types.enum [ "foot" "ghostty" "kitty" ] );
-      default = [ "foot" ];
-      description = "List of terminal emulators to install.";
-    };
-  };
   
-  config = {
-    programs.foot = lib.mkIf (lib.elem "foot" config.terminals.selection){
+  programs = {
+    foot = {
       enable = true;
 
       settings = {
@@ -43,7 +37,7 @@ in
       };
     };
 
-    programs.ghostty = lib.mkIf (lib.elem "ghostty" config.terminals.selection){
+    ghostty = {
       enable = true;
       enableZshIntegration = true;
       settings = {
@@ -63,7 +57,7 @@ in
       };
     };
 
-    programs.kitty = lib.mkIf (lib.elem "kitty" config.terminals.selection){
+    kitty = {
       enable = true;
 
       shellIntegration.enableZshIntegration = true;

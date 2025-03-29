@@ -11,16 +11,10 @@
 
     # Other
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
-    thealtf4stream-nvim.url = "github:ALT-F4-LLC/thealtf4stream.nvim";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  let
     inherit (self) outputs;
   in {
     nixosConfigurations = {
@@ -34,7 +28,12 @@
     homeConfigurations = {
       "oliver@t14s" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        extraSpecialArgs = {inherit inputs outputs;
+            monitors = [
+              { name = "eDP-1"; res = "2880x1800"; scale = "2"; hz = "90"; pos = "0 0"; }
+            ];
+            primaryTerminal = nixpkgs.foot;
+        };
 
         modules = [./home-manager/users/oliver/home.nix];
       };

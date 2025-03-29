@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{ config, pkgs, inputs, monitors, ... }: {
   imports = [
     ../../modules
   ];
@@ -12,40 +7,28 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  WMs.selection = [ "sway" "hyprland" ];
-  browsers.selection = [ "firefox" "brave" ];
-  terminals.selection = [ "foot" ];
-
   home.packages = with pkgs; [
     vimPlugins.vim-plug
     wmenu
-    swayosd
-    brave
     slurp
     grim
     tree
-    neovim
-    dunst
     nemo
     swaybg
     swayimg
     wallutils
     pstree
-    texliveFull
     gparted
     calcurse
     evolution
     gimp
     wget
-    udiskie
     libreoffice
-    texliveFull
     pfetch-rs
     owofetch
     discord
     spotify
     valgrind
-    hyprlock
     code-cursor
     wl-clipboard
   ];
@@ -86,72 +69,13 @@
   };
 
   services = {
-    gnome-keyring = {enable = true;};
-    # syncthing = syncthingConfig;
+    # declared in nix-config/home-manager/modules/services.nix
   };
 
   programs = {
-    # Let Home Manager install and manage itself.
-    home-manager = {
-      enable = true;
-    };
-    vim.enable = true;
-    emacs = {
-      enable = true;
-      package = pkgs.emacs-pgtk;
-    };
-    htop = {
-      enable = true;
-    };
-    wofi = {
-      enable = true;
-      settings = {
-        mode = "drun";
-        allow_images = true;
-        allow_markup = true;
-        gtk_dark = true;
-      };
-    };
-    git = {
-      enable = true;
-      userName = "Ollilauch";
-      userEmail = "oliverjbmub@gmail.com";
-    };
-    fastfetch = {
-      enable = true;
-      settings = {
-        modules = [
-          "title"
-          "separator"
-          "os"
-          "host"
-          "kernel"
-          "uptime"
-          "packages"
-          "shell"
-          "display"
-          "wm"
-          "font"
-          "terminal"
-          "terminalfont"
-          "cpu"
-          "gpu"
-          "memory"
-          "disk"
-          "battery"
-          "poweradapter"
-          "break"
-          "colors"
-        ];
-      };
-    };
-    direnv = {
-      enable = true;
-      enableBashIntegration = true; # see note on other shells below
-      nix-direnv.enable = true;
-    };
+    # declared in nix-config/home-manager/modules/programs.nix
   };
-
+  
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.

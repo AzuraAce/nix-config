@@ -3,4 +3,5 @@
   services.tailscale.enable = true;
   services.davfs2.enable = true;
   services.xserver.xkb.layout = "de";
+  services.udisks2.enable = true;
 }
