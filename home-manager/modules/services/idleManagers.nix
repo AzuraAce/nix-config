@@ -1,17 +1,31 @@
 { pkgs, ... }:
 {
-    services.hypridle = {
+  services = {
+    swayidle = {
       enable = false;
+      
+      timeouts = [
+        { timeout = 60; command = "swaymsg 'output * dpms off'"; resumeCommand = "swaymsg 'output * dpms on'"; }
+        { timeout = 90; command = "${pkgs.systemd}/bin/systemctl suspend"; }
+      ];
+      events = [
+        { event = "before-sleep"; command = "loginctl lock-session"; }
+        { event = "lock"; command = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock"; }
+      ];
+    };
+    
+    hypridle = {
+      enable = true;
       settings = {
         general = {
-          lock_cmd = "hyprlock"; # Avoid starting multiple hyprlock instances.
+          lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock"; # Avoid starting multiple ${pkgs.hyprlock}/bin/hyprlock instances.
           before_sleep_cmd = "loginctl lock-session"; # Lock before suspend.
           after_sleep_cmd = "hyprctl dispatch dpms on"; # Avoid pressing a key twice to turn on the display.
         };
 
         listeners = [
           {
-            timeout = 150; # 2.5 min
+            timeout = 5; # 2.5 min
             on-timeout = "brightnessctl -s set 10"; # Set monitor backlight to minimum.
             on-resume = "brightnessctl -r"; # Restore monitor backlight.
           }
@@ -25,9 +39,11 @@
             on-timeout = "loginctl lock-session"; # Lock screen after timeout.
           }
           {
-            timeout = 330; # 5.5 min
-            on-timeout = "hyprctl dispatch dpms off ;; swaymsg output * dpms off"; # Screen off after timeout.
-            on-resume = "hyprctl dispatch dpms on ;; swaymsg output * dpms off && brightnessctl -r"; # Restore screen.
+            timeout = 3; # 5.5 minimum
+            # on-timeout = "hyprctl dispatch dpms off";
+            on-timeout = "swaymsg 'output * dpms off'";
+            # on-resume = "hyprctl dispatch dpms on";
+            on-resume = "swaymsg 'output * dpms on'";
           }
           {
             timeout = 1800; # 30 min
@@ -36,4 +52,5 @@
         ];
       };
     };
+  };
 }

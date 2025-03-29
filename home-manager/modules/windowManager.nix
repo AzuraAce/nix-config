@@ -112,7 +112,7 @@ in
         ];
       };
 
-      extraConfig = "bindswitch --reload --locked lid:on exec hyprlock";
+      # extraConfig = "bindswitch --reload --locked lid:on exec hyprlock";
     };
 
     hyprland = {

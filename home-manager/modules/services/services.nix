@@ -11,10 +11,11 @@
       enable = true;
       automount = true;
       notify = true;
+      tray = "auto";
       settings = {
         program_options = {
           udisks_version = 2;
-          tray = true;
+          tray = "auto";
         };
         icon_names.media = [ "media-optical" ];
       };

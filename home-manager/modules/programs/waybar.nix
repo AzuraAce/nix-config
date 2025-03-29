@@ -80,7 +80,7 @@ in {
         "tray" = {
           icon-size = 21;
           spacing = 10;
-          show-passive-items = true;
+          show-passive-items = false;
         };
 
         "clock" = {
@@ -139,7 +139,7 @@ in {
           format-charging = "󰂄 {capacity}%";
           format-plugged = "{capacity}%";
           format-alt = "{icon} {time} ";
-          format-icons = ["  " "  " "  " "  " "  "];
+          format-icons = [" " " " " " " " " "];
         };
 
         "network" = {
@@ -378,7 +378,7 @@ in {
       }
 
       #tray {
-        background-color: #2980b9;
+        background-color: transparent;
         margin-right: 10px;
       }
 

@@ -1,7 +1,10 @@
 {
-  services.printing.enable = true;
-  services.tailscale.enable = true;
-  services.davfs2.enable = true;
-  services.xserver.xkb.layout = "de";
-  services.udisks2.enable = true;
+  services = {
+    printing.enable = true;
+    tailscale.enable = true;
+    davfs2.enable = true;
+    xserver.xkb.layout = "de";
+    udisks2.enable = true;
+    hypridle.enable = true;
+  };
 }

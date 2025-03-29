@@ -5,9 +5,8 @@
     ./programs/browser.nix
     ./programs/terminal.nix
     ./programs/programs.nix
-    ./services/hypridle.nix
-    ./services/swayidle.nix
     ./services/services.nix
+    ./services/idleManagers.nix
     ./cursor.nix
     ./windowManager.nix
   ];
