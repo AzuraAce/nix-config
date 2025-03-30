@@ -2,8 +2,9 @@
   floating_term = "${pkgs.foot}/bin/foot -a foot.float -o colors.alpha=0.95";
   # floating_term = "${pkgs.ghostty}/bin/ghostty --class=ghostty.float --background-opacity=0.95";
  
-  /* rgba(18, 18, 18, 0.75) */
-  background-color = "rgba(46,52,64, 0.75)";
+  # background-color = "rgba(46,52,64, 0.75)"; # nord theme
+  background-color = "rgba(0,0,0,0.75)";
+  foreground-color = "#FFFFFF";
 in {
   programs.waybar = {
     enable = true;
@@ -15,8 +16,8 @@ in {
 
         # Choose the order of the modules
         modules-left = ["custom/logo" "hyprland/workspaces" "hyprland/window" "sway/mode" "sway/workspaces" "sway/window" "custom/media"];
-        modules-center = ["clock"];
-        modules-right = ["pulseaudio" "network" "backlight" "cpu" "memory" "battery" "tray"];
+        modules-center = [];
+        modules-right = ["pulseaudio" "network" "backlight" /* "cpu" "memory" */ "battery" "custom/notification" "clock" /* "tray" */];
 
         # Modules configuration
         "hyprland/workspaces" = {
@@ -69,14 +70,6 @@ in {
           tooltip-format-disconnected = "MPD (disconnected)";
         };
 
-        "idle_inhibitor" = {
-          format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-        };
-
         "tray" = {
           icon-size = 21;
           spacing = 10;
@@ -84,21 +77,7 @@ in {
         };
 
         "clock" = {
-          format = "{:%R  %A %b %d }";
-          tooltip-format = "<tt><small>{calendar}</small></tt>";
-          calendar = {
-            mode = "year";
-            mode-mon-col = 3;
-            weeks-pos = "right";
-            on-scroll = 1;
-            format = {
-              months = "<span color='#ffead3'><b>{}</b></span>";
-              days = "<span color='#ecc6d9'><b>{}</b></span>";
-              weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
-            };
-          };
+          format = "{:%a %d %b  %R}";
           on-click = "${floating_term} --title=calcurse -e ${pkgs.calcurse}/bin/calcurse";
           on-click-right = "mode";
           on-scroll-up = ["tz_up" "shift_up"];
@@ -138,8 +117,8 @@ in {
           format = "{capacity}% {icon}";
           format-charging = "󰂄 {capacity}%";
           format-plugged = "{capacity}%";
-          format-alt = "{icon} {time} ";
-          format-icons = [" " " " " " " " " "];
+          format-alt = "{icon} {time}";
+          format-icons = ["" "" "" "" ""];
         };
 
         "network" = {
@@ -152,8 +131,9 @@ in {
         };
 
         "pulseaudio" = {
-          format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon}";
+          # format = "{volume}% {icon}";
+          format = "{icon}";
+          format-bluetooth = "{icon}";
           format-muted = "";
           format-icons = {
             "alsa_output.pci-0000_00_1f.3.analog-stereo" = "";
@@ -170,6 +150,27 @@ in {
           scroll-step = 1;
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
           ignored-sinks = ["Easy Effects Sink"];
+        };
+
+        "custom/notification" = {
+          tooltip = false;
+          format = "{icon}";
+          format-icons = {
+            notification = "<span foreground='red'><sup></sup></span>";
+            none = "";
+            dnd-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-none = "";
+            inhibited-notification = "<span foreground='red'><sup></sup></span>";
+            inhibited-none = "";
+            dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-inhibited-none = "";
+          };
+          return-type = "json";
+          exec-if = "which ${pkgs.swaynotificationcenter}/bin/swaync-client";
+          exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+          on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+          on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
+          escape = true;
         };
 
         "custom/media" = {
@@ -203,7 +204,7 @@ in {
 
        window#waybar {
         background-color: ${background-color};
-        color: #f5f5f5;
+        color: ${foreground-color};
         border-radius: 10px;
       }
 
@@ -213,7 +214,7 @@ in {
 
       #workspaces button {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
         /* Use box-shadow instead of border so the text isn't offset */
         box-shadow: inset 0 -3px transparent;
         padding: 0px 5px;
@@ -223,19 +224,19 @@ in {
       /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
       #workspaces button:hover {
         background: rgba(18, 18, 18, 0.9);
-        box-shadow: inset 0 -3px #f5f5f5;
+        box-shadow: inset 0 -3px ${foreground-color};
       }
 
       /* Hyprland active workspace */
       #workspaces button.active {
         background-color: #64727d;
-        /* box-shadow: inset 0 -3px #f5f5f5; */
+        /* box-shadow: inset 0 -3px ${foreground-color}; */
       }
 
       /* Sway ative workspace */
       #workspaces button.focused {
         background-color: #64727d;
-        /* box-shadow: inset 0 -3px #f5f5f5; */
+        /* box-shadow: inset 0 -3px ${foreground-color}; */
       }
 
       #workspaces button.urgent {
@@ -244,7 +245,7 @@ in {
 
       #mode {
         background-color: #64727d;
-        /* border-bottom: 3px solid #f5f5f5; */
+        /* border-bottom: 3px solid ${foreground-color}; */
       }
 
       #clock,
@@ -282,16 +283,16 @@ in {
 
       #clock {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #battery {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #battery.charging {
-        color: #f5f5f5;
+        color: ${foreground-color};
         background-color: transparent;
       }
 
@@ -304,12 +305,12 @@ in {
 
       #battery.warning:not(.charging) {
         background-color: transparent;
-        color: #F5993C; /* #f5f5f5 */
+        color: #F5993C; /* ${foreground-color} */
       }
 
       #battery.critical:not(.charging) {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
         animation-name: blink;
         animation-duration: 0.5s;
         animation-timing-function: linear;
@@ -323,22 +324,22 @@ in {
 
       #cpu {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #memory {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #backlight {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #network {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #network.disconnected {
@@ -347,12 +348,12 @@ in {
 
       #pulseaudio {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #pulseaudio.muted {
         background-color: transparent;
-        color: #f5f5f5;
+        color: ${foreground-color};
       }
 
       #custom-media {
@@ -382,15 +383,6 @@ in {
         margin-right: 10px;
       }
 
-      #idle_inhibitor {
-        background-color: #2d3436;
-      }
-
-      #idle_inhibitor.activated {
-        background-color: #ecf0f1;
-        color: #2d3436;
-      }
-
       #mpd {
         background-color: #66cc99;
         color: #2a5c45;
@@ -406,6 +398,14 @@ in {
 
       #mpd.paused {
         background-color: #51a37a;
+      }
+
+      #custom-notification {
+        background-color: transparent;
+        color: ${foreground-color};
+        padding: 0px 0px 0px 0px;
+        margin-left: 15px;
+        margin-right: 10px;
       }
 
       #custom-logo {

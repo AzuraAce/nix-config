@@ -44,6 +44,18 @@
         notification-icon-size = 64;
         notification-body-image-height = 100;
         notification-body-image-width = 200;
+
+        buttons-grid = { 
+          actions = [
+            {
+              label = "WiFi";
+              type = "toggle";
+              active = true;
+              command = "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'";
+              update-command = "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'";
+            }
+          ];
+        };
       };
 
       style = ''
