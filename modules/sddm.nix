@@ -13,7 +13,8 @@
         settings = {
             Theme = {
               CursorTheme = "Adwaita";
-                };
+              CursorSize = 24;
+            };
         };
     };
   };

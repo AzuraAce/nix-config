@@ -52,6 +52,8 @@ in
           "type:touchpad" = {
             tap = "enabled";
             natural_scroll = "enabled";
+            accel_profile = "flat";
+            pointer_accel = "0.8";
           };
           "type:keyboard" = {
             xkb_layout = "de";

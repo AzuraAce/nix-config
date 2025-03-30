@@ -14,5 +14,6 @@
     ./services.nix
     ./sway.nix
     ./security.nix
+    ./pkgs.nix
   ];
 }
