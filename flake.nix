@@ -10,13 +10,21 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Other
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    dwl-source = {
+      url = "github:djpohly/dwl";
+      flake = false;
+    };
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
   let
     inherit (self) outputs;
   in {
+    overlays = import ./overlays {inherit inputs;};
+
     nixosConfigurations = {
       t14s = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
@@ -32,10 +40,12 @@
             monitors = [
               { name = "eDP-1"; res = "2880x1800"; scale = "2"; hz = "90"; pos = "0 0"; }
             ];
-            primaryTerminal = nixpkgs.foot;
         };
 
-        modules = [./home-manager/users/oliver/home.nix];
+        modules = [
+          ./home-manager/users/oliver/home.nix
+          ./home-manager/modules/windowManager/dwl/dwl.nix
+        ];
       };
     };
   };

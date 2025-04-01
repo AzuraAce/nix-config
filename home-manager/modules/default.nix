@@ -8,6 +8,6 @@
     ./services/services.nix
     ./services/idleManagers.nix
     ./cursor.nix
-    ./windowManager.nix
+    ./windowManager/windowManager.nix
   ];
 }
