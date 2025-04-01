@@ -1,11 +1,16 @@
-{ config, pkgs, inputs, monitors, ... }: {
+{ config, pkgs, inputs, outputs, monitors, ... }: {
   imports = [
     ../../modules
   ];
   home.username = "oliver";
   home.homeDirectory = "/home/oliver";
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      outputs.overlays.modifications
+    ];
+  };
 
   home.packages = with pkgs; [
     vimPlugins.vim-plug
