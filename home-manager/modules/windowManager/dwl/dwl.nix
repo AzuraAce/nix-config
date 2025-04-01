@@ -1,22 +1,14 @@
-{ config, pkgs, dwl-source, ... }:
+{ config, pkgs, inputs, ... }:
 {
   nixpkgs.overlays = [
-    (self: super: {
-      dwl = super.dwl.overrideAttrs (oldAttrs: rec {
-        src = dwl-source;
-        /* patches = [
-          ./dwl-patches/focusdirection.patch
-          ./dwl-patches/attachbottom.patch
-          ./dwl-patches/monfig.patch
-          ./dwl-patches/point.patch
-          ./dwl-patches/restoreTiling.patch
-          ./dwl-patches/toggleKbLayout.patch
-          ./dwl-patches/cursor_warp.patch
-          ./dwl-patches/output-power-management.patch
-          ./dwl-patches/autostart.patch
-          ./dwl-patches/vanitygaps.patch
-        ]; */
+    (final: prev: {
+      dwl = prev.dwl.overrideAttrs ({
+        configH = ../home-manager/modules/windowManager/dwl/dwl-config.h;
+        patches = [
+          ./dwl-patches/vanitygaps-0.7.patch
+        ];
       });
+
     })
   ];
 }

@@ -10,7 +10,7 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    dwl = prev.dwl.override { conf = ../home-manager/modules/windowManager/dwl/dwl-config.h; };
+    dwl = prev.dwl.override { configH = ../home-manager/modules/windowManager/dwl/dwl-config.h; };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

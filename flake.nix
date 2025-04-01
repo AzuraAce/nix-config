@@ -11,25 +11,22 @@
 
     # Other
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    dwl-source = {
-      url = "github:djpohly/dwl";
-      flake = false;
-    };
-
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
   let
     inherit (self) outputs;
   in {
-    overlays = import ./overlays {inherit inputs;};
+/*     overlays = import ./overlays {inherit inputs;}; */
 
     nixosConfigurations = {
       t14s = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
 
-        modules = [./hosts/t14s/configuration.nix];
+        modules = [
+          ./hosts/t14s/configuration.nix
+          ./home-manager/modules/windowManager/dwl/dwl.nix
+        ];
       };
     };
 
@@ -44,7 +41,6 @@
 
         modules = [
           ./home-manager/users/oliver/home.nix
-          ./home-manager/modules/windowManager/dwl/dwl.nix
         ];
       };
     };

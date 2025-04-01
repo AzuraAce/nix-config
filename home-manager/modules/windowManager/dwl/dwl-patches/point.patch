@@ -1,4 +1,4 @@
-From 794fef410ac2176369ad636132a3c2c51204beb3 Mon Sep 17 00:00:00 2001
+From 473754ea6c9b979a82e585b6c59058b15a72a8e7 Mon Sep 17 00:00:00 2001
 From: Palanix <palanixyt@gmail.com>
 Date: Sun, 3 Jul 2022 18:46:18 +0200
 Subject: [PATCH] Fix pointerconstraints
@@ -6,19 +6,19 @@ Subject: [PATCH] Fix pointerconstraints
 ---
  Makefile     |  5 +++-
  config.def.h |  3 ++
- dwl.c        | 83 +++++++++++++++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 89 insertions(+), 2 deletions(-)
+ dwl.c        | 84 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 90 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index f0ff805b7..cc5e98ccd 100644
+index ccca0794..ee131614 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -16,7 +16,7 @@ LDLIBS    = `$(PKG_CONFIG) --libs $(PKGS)` $(LIBS)
  all: dwl
  dwl: dwl.o util.o
  	$(CC) dwl.o util.o $(LDLIBS) $(LDFLAGS) $(DWLCFLAGS) -o $@
--dwl.o: dwl.c config.mk config.h client.h cursor-shape-v1-protocol.h xdg-shell-protocol.h wlr-layer-shell-unstable-v1-protocol.h
-+dwl.o: dwl.c config.mk config.h client.h cursor-shape-v1-protocol.h xdg-shell-protocol.h wlr-layer-shell-unstable-v1-protocol.h pointer-constraints-unstable-v1-protocol.h
+-dwl.o: dwl.c config.mk config.h client.h xdg-shell-protocol.h wlr-layer-shell-unstable-v1-protocol.h
++dwl.o: dwl.c config.mk config.h client.h xdg-shell-protocol.h wlr-layer-shell-unstable-v1-protocol.h pointer-constraints-unstable-v1-protocol.h
  util.o: util.c util.h
  
  # wayland-scanner is a tool which generates C headers and rigging for Wayland
@@ -33,21 +33,21 @@ index f0ff805b7..cc5e98ccd 100644
  	$(WAYLAND_SCANNER) server-header \
  		protocols/wlr-layer-shell-unstable-v1.xml $@
 diff --git a/config.def.h b/config.def.h
-index db0babc6f..943ba2d42 100644
+index 419e6ef4..9dcbf514 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -19,6 +19,9 @@ static const float fullscreen_bg[]         = {0.1, 0.1, 0.1, 1.0}; /* You can al
- /* logging */
- static int log_level = WLR_ERROR;
+@@ -8,6 +8,9 @@ static const float focuscolor[]            = {1.0, 0.0, 0.0, 1.0};
+ /* To conform the xdg-protocol, set the alpha to zero to restore the old behavior */
+ static const float fullscreen_bg[]         = {0.1, 0.1, 0.1, 1.0};
  
 +/* pointer constraints */
 +static const int allow_constrain      = 1;
 +
- static const Rule rules[] = {
- 	/* app_id     title       tags mask     isfloating   monitor */
- 	/* examples:
+ /* tagging - tagcount must be no greater than 31 */
+ static const int tagcount = 9;
+ 
 diff --git a/dwl.c b/dwl.c
-index 1bfe8cf6f..2fb0500ff 100644
+index 8043bf98..8b73a014 100644
 --- a/dwl.c
 +++ b/dwl.c
 @@ -1,6 +1,7 @@
@@ -57,8 +57,8 @@ index 1bfe8cf6f..2fb0500ff 100644
 +#include <assert.h>
  #include <getopt.h>
  #include <libinput.h>
- #include <linux/input-event-codes.h>
-@@ -35,8 +36,10 @@
+ #include <limits.h>
+@@ -34,8 +35,10 @@
  #include <wlr/types/wlr_output_management_v1.h>
  #include <wlr/types/wlr_pointer.h>
  #include <wlr/types/wlr_presentation_time.h>
@@ -69,7 +69,7 @@ index 1bfe8cf6f..2fb0500ff 100644
  #include <wlr/types/wlr_scene.h>
  #include <wlr/types/wlr_screencopy_v1.h>
  #include <wlr/types/wlr_seat.h>
-@@ -209,6 +212,14 @@ typedef struct {
+@@ -202,6 +205,14 @@ typedef struct {
  	int x, y;
  } MonitorRule;
  
@@ -84,7 +84,7 @@ index 1bfe8cf6f..2fb0500ff 100644
  typedef struct {
  	const char *id;
  	const char *title;
-@@ -251,6 +262,7 @@ static void createlocksurface(struct wl_listener *listener, void *data);
+@@ -244,6 +255,7 @@ static void createlocksurface(struct wl_listener *listener, void *data);
  static void createmon(struct wl_listener *listener, void *data);
  static void createnotify(struct wl_listener *listener, void *data);
  static void createpointer(struct wlr_pointer *pointer);
@@ -92,7 +92,7 @@ index 1bfe8cf6f..2fb0500ff 100644
  static void cursorframe(struct wl_listener *listener, void *data);
  static void destroydragicon(struct wl_listener *listener, void *data);
  static void destroyidleinhibitor(struct wl_listener *listener, void *data);
-@@ -260,13 +272,15 @@ static void destroylocksurface(struct wl_listener *listener, void *data);
+@@ -253,13 +265,15 @@ static void destroylocksurface(struct wl_listener *listener, void *data);
  static void destroynotify(struct wl_listener *listener, void *data);
  static void destroysessionlock(struct wl_listener *listener, void *data);
  static void destroysessionmgr(struct wl_listener *listener, void *data);
@@ -105,10 +105,10 @@ index 1bfe8cf6f..2fb0500ff 100644
  static Client *focustop(Monitor *m);
  static void fullscreennotify(struct wl_listener *listener, void *data);
 +static void handleconstraintcommit(struct wl_listener *listener, void *data);
- static void handlesig(int signo);
  static void incnmaster(const Arg *arg);
  static void inputdevice(struct wl_listener *listener, void *data);
-@@ -377,6 +391,11 @@ static struct wlr_box sgeom;
+ static int keybinding(uint32_t mods, xkb_keysym_t sym);
+@@ -363,6 +377,11 @@ static struct wlr_box sgeom;
  static struct wl_list mons;
  static Monitor *selmon;
  
@@ -117,11 +117,19 @@ index 1bfe8cf6f..2fb0500ff 100644
 +static struct wl_listener constraint_commit;
 +struct wlr_relative_pointer_manager_v1 *relative_pointer_manager;
 +
- #ifdef XWAYLAND
- static void activatex11(struct wl_listener *listener, void *data);
- static void associatex11(struct wl_listener *listener, void *data);
-@@ -930,6 +949,30 @@ createmon(struct wl_listener *listener, void *data)
- 	strncpy(m->ltsymbol, m->lt[m->sellt]->symbol, LENGTH(m->ltsymbol));
+ /* global event handlers */
+ static struct wl_listener cursor_axis = {.notify = axisnotify};
+ static struct wl_listener cursor_button = {.notify = buttonpress};
+@@ -378,6 +397,7 @@ static struct wl_listener new_virtual_keyboard = {.notify = virtualkeyboard};
+ static struct wl_listener new_output = {.notify = createmon};
+ static struct wl_listener new_xdg_surface = {.notify = createnotify};
+ static struct wl_listener new_xdg_decoration = {.notify = createdecoration};
++static struct wl_listener pointer_constraint_create = {.notify = createpointerconstraint};
+ static struct wl_listener new_layer_shell_surface = {.notify = createlayersurface};
+ static struct wl_listener output_mgr_apply = {.notify = outputmgrapply};
+ static struct wl_listener output_mgr_test = {.notify = outputmgrtest};
+@@ -972,6 +992,30 @@ createmon(struct wl_listener *listener, void *data)
+ 		wlr_output_layout_add(output_layout, wlr_output, m->m.x, m->m.y);
  }
  
 +void
@@ -151,7 +159,7 @@ index 1bfe8cf6f..2fb0500ff 100644
  void
  createnotify(struct wl_listener *listener, void *data)
  {
-@@ -1022,6 +1065,25 @@ createpointer(struct wlr_pointer *pointer)
+@@ -1060,6 +1104,25 @@ createpointer(struct wlr_pointer *pointer)
  	wlr_cursor_attach_input_device(cursor, &pointer->base);
  }
  
@@ -177,8 +185,8 @@ index 1bfe8cf6f..2fb0500ff 100644
  void
  cursorframe(struct wl_listener *listener, void *data)
  {
-@@ -1316,6 +1378,12 @@ handlesig(int signo)
- 	}
+@@ -1324,6 +1387,12 @@ fullscreennotify(struct wl_listener *listener, void *data)
+ 	setfullscreen(c, client_wants_fullscreen(c));
  }
  
 +void
@@ -190,7 +198,7 @@ index 1bfe8cf6f..2fb0500ff 100644
  void
  incnmaster(const Arg *arg)
  {
-@@ -1676,7 +1744,15 @@ motionrelative(struct wl_listener *listener, void *data)
+@@ -1684,7 +1753,15 @@ motionrelative(struct wl_listener *listener, void *data)
  	 * special configuration applied for the specific input device which
  	 * generated the event. You can pass NULL for the device if you want to move
  	 * the cursor around without any input. */
@@ -207,12 +215,12 @@ index 1bfe8cf6f..2fb0500ff 100644
  	motionnotify(event->time_msec);
  }
  
-@@ -2282,6 +2358,11 @@ setup(void)
+@@ -2235,6 +2312,11 @@ setup(void)
  	xdg_decoration_mgr = wlr_xdg_decoration_manager_v1_create(dpy);
- 	LISTEN_STATIC(&xdg_decoration_mgr->events.new_toplevel_decoration, createdecoration);
+ 	wl_signal_add(&xdg_decoration_mgr->events.new_toplevel_decoration, &new_xdg_decoration);
  
 +	pointer_constraints = wlr_pointer_constraints_v1_create(dpy);
-+	LISTEN_STATIC(&pointer_constraints->events.new_constraint, createpointerconstraint);
++	wl_signal_add(&pointer_constraints->events.new_constraint, &pointer_constraint_create);
 +
 +	relative_pointer_manager = wlr_relative_pointer_manager_v1_create(dpy);
 +

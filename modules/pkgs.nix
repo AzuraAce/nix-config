@@ -3,6 +3,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     whitesur-cursors
-    dwl
+    unzip
   ];
 }

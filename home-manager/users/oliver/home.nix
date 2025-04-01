@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, outputs, monitors, ... }: {
+{ config, pkgs, inputs, dwl-source, outputs, monitors, ... }: {
   imports = [
     ../../modules
   ];
@@ -7,9 +7,11 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
+    /* overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.modifications
-    ];
+      outputs.overlays.unstable-packages
+    ]; */
   };
 
   home.packages = with pkgs; [
@@ -36,6 +38,7 @@
     valgrind
     code-cursor
     wl-clipboard
+    dwl
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
