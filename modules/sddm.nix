@@ -5,7 +5,7 @@
   qt.enable = true;
 
   services.displayManager = {
-    defaultSession = "hyprland";
+    defaultSession = "none+dwm";
       sddm = {
         enable = true;
         wayland.enable = false;

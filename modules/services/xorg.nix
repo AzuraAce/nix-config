@@ -1,7 +1,7 @@
 {
   environment.variables = {
     GDK_SCALE = "1";
-    GDK_DPI_SCALE = "0.5";
+    GDK_DPI_SCALE = "1";
   };
   services = {
     libinput = {
@@ -10,6 +10,7 @@
       };
       touchpad = {
         accelProfile = "flat";
+        accelSpeed = "1";
         naturalScrolling = true;
       };
     };
