@@ -10,7 +10,7 @@
         owner = "AzuraAce";
         repo = "st";
         rev = "main";
-        sha256 = "sha256-ogNPUdWXoyycm3HhgQ2n5ZnTXhR+ZumPrTofNFp8xIk=";
+        sha256 = "sha256-oGs5Nl7Jev7J5S+YXwHX12ZaKrlwRHEqgn35eyMIBGA=";
       };
     }))
   ];

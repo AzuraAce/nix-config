@@ -16,13 +16,12 @@
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
   let
     inherit (self) outputs;
-    dwm-source = ./dwm;
   in {
 /*     overlays = import ./overlays {inherit inputs;}; */
 
     nixosConfigurations = {
       t14s = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs dwm-source;};
+        specialArgs = {inherit inputs outputs;};
 
         modules = [
           ./hosts/t14s/configuration.nix

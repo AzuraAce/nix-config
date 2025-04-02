@@ -16,5 +16,6 @@
     ./hardware.nix
     ./services/services.nix
     ./services/xorg.nix
+    ./programs.nix
   ];
 }
