@@ -3,7 +3,6 @@
     # X11 compositor
     picom = {
       enable = true;
-      activeOpacity = 0.8;
     };
   
     gnome-keyring = {enable = true;};

@@ -5,10 +5,6 @@
     name = "WhiteSur-cursors";
     package = pkgs.whitesur-cursors;
     size = 24;
-    x11 = {
-      enable = true;
-      # defaultCursor = "WhiteSur-cursors";
-    };
   };
 
   gtk.gtk4.extraConfig = {

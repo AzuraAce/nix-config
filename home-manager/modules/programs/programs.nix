@@ -9,6 +9,10 @@ in
       enable = true;
     };
     
+    feh = {
+      enable = true;
+    };
+
     # LaTeX
     # used in VimTex for note-taking
     texlive = {

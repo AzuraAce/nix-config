@@ -2,6 +2,8 @@
   environment.variables = {
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1";
+    CURSOR_THEME = "WhieSur-cursors";
+    CURSOR_SIZE = "32";
   };
   services = {
     libinput = {
