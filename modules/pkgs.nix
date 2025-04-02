@@ -4,12 +4,13 @@
     neovim
     whitesur-cursors
     unzip
+    # Suckless Terminal
     (st.overrideAttrs (oldAttrs: rec {
       src = fetchFromGitHub {
         owner = "AzuraAce";
         repo = "st";
         rev = "main";
-        hash = "sha256-qqnfUA7hmfdZh+S7e70JC8DCpVvUDR2vBm0OsdeFZQc=";
+        sha256 = "sha256-ogNPUdWXoyycm3HhgQ2n5ZnTXhR+ZumPrTofNFp8xIk=";
       };
     }))
   ];
