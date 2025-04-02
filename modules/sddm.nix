@@ -8,7 +8,7 @@
     defaultSession = "hyprland";
       sddm = {
         enable = true;
-        wayland.enable = true;
+        wayland.enable = false;
         theme = "${import ../themes/sddm/sddm-themes.nix { inherit pkgs; }}";
         settings = {
             Theme = {

@@ -8,7 +8,7 @@
   networking.hostName = "t14s";
 
   # Enable Wayland for Electron Apps
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.XCURSOR_THEME = "WhiteSur_cursors";
 
   programs.zsh.enable = true;
