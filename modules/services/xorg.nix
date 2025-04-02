@@ -1,6 +1,7 @@
 {
   environment.variables = {
     GDK_SCALE = "1";
+    GDK_DPI_SCALE = "0.5";
   };
   services = {
     libinput = {

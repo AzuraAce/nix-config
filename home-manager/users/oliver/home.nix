@@ -40,7 +40,6 @@
     wl-clipboard
     dwl
     xorg.xbacklight
-    st
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
