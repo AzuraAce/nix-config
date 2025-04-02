@@ -1,10 +1,10 @@
 {
   imports = [
+    ./windowManager.nix
     ./audio.nix
     ./bluetooth.nix
     ./boot.nix
     ./env.nix
-    ./hyprland.nix
     ./net.nix
     ./nix.nix
     ./timezone.nix
@@ -12,8 +12,8 @@
     ./tlp.nix
     ./fonts.nix
     ./services.nix
-    ./sway.nix
     ./security.nix
     ./pkgs.nix
+    ./hardware.nix
   ];
 }
