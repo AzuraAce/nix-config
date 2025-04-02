@@ -11,9 +11,10 @@
     ./sddm.nix
     ./tlp.nix
     ./fonts.nix
-    ./services.nix
     ./security.nix
     ./pkgs.nix
     ./hardware.nix
+    ./services/services.nix
+    ./services/xorg.nix
   ];
 }
