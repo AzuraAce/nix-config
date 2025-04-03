@@ -10,6 +10,7 @@
     unzip
     acpi
     nix-prefetch-git
+    jq
     # Suckless Terminal
     xclip
     (st.overrideAttrs (oldAttrs: rec {
