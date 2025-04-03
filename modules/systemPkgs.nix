@@ -1,11 +1,17 @@
-{ pkgs, ... }:
+{ pkgs, outputs, ... }:
 {
+  nixpkgs.overlays = [
+    outputs.overlays.additions
+  ];
+
   environment.systemPackages = with pkgs; [
     neovim
     whitesur-cursors
     unzip
     acpi
+    nix-prefetch-git
     # Suckless Terminal
+    xclip
     (st.overrideAttrs (oldAttrs: rec {
       src = fetchFromGitHub {
         owner = "AzuraAce";
@@ -15,5 +21,6 @@
       };
     }))
     dmenu
+    dwmblocks-async
   ];
 }

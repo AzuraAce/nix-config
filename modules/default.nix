@@ -12,10 +12,10 @@
     ./tlp.nix
     ./fonts.nix
     ./security.nix
-    ./pkgs.nix
     ./hardware.nix
-    ./services/services.nix
     ./services/xorg.nix
+    ./services/services.nix
     ./programs.nix
+    ./systemPkgs.nix
   ];
 }
