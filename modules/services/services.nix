@@ -9,7 +9,7 @@
 
     # DWM Status bar
     dwm-status = {
-      enable = true;
+      enable = false;
       order = [
         "audio"
         "backlight"
