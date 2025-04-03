@@ -4,6 +4,7 @@
     neovim
     whitesur-cursors
     unzip
+    acpi
     # Suckless Terminal
     (st.overrideAttrs (oldAttrs: rec {
       src = fetchFromGitHub {

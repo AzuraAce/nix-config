@@ -15,7 +15,7 @@
     isNormalUser = true;
     home="/home/oliver";
     shell=pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "video" ]; 
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" ]; 
   };
 
   tlp.enable = true;

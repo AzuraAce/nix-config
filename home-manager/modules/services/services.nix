@@ -27,11 +27,11 @@
     };
     
     dunst = {
-      enable = false;
+      enable = true;
     };
 
     swaync = {
-      enable = true;
+      enable = false;
 
       settings = {
         positionX = "right";
