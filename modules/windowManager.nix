@@ -10,7 +10,7 @@
             owner = "AzuraAce";
             repo = "dwm";
             rev = "main";
-            sha256 = "sha256-e8wqIxQl6fO1mscjSGbbwEB3BG8yYGBDfSr5QU2LhWM=";
+            sha256 = "sha256-JgSkkKACEjZDx18DJa+F5RhtorAEEfWLrCld/3Clw4g=";
           };
         };
       };
