@@ -8,7 +8,7 @@ stdenv.mkDerivation {
     owner = "AzuraAce";
     repo = "dwmblocks-async";
     rev = "main";
-    sha256 = "sha256-oZMlRBV1oyWn7j4ctGKwV+FGBagKn2DkbUph0JSy9lc=";
+    sha256 = "sha256-00yFYnlYKWZiwY8d+G+sbs33XOF/QcmsLTeBfjDCrZ8=";
   };
 
   strictDeps = true;
