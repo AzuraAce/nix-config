@@ -5,7 +5,7 @@
   qt.enable = true;
 
   services.displayManager = {
-    defaultSession = "none+dwm";
+    defaultSession = "DWM";
       sddm = {
         enable = true;
         wayland.enable = false;
@@ -18,6 +18,16 @@
         };
     };
   };
+
+  services.xserver.displayManager.session = [
+    { manage = "desktop";
+      name = "DWM";
+      start = ''
+        exec ${pkgs.dwm}/bin/dwm
+      '';
+    }
+  ]
+  ;
 
   environment.systemPackages = with pkgs; [
     libsForQt5.qt5.qtquickcontrols2
