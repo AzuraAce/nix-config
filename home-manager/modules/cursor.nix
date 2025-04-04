@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   home.pointerCursor = {
     gtk.enable = true; 
@@ -8,12 +8,5 @@
     x11.enable = true;
   };
 
-  gtk = {
-    enable = true;
-    cursorTheme = {
-      name = "WhiteSur-cursors";
-      package = pkgs.whitesur-cursors;
-      size = 32;
-    };
-  };
+  qt.enable = true;
 }

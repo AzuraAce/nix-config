@@ -11,6 +11,7 @@
     acpi
     nix-prefetch-git
     jq
+    wirelesstools
     # Suckless Terminal
     xclip
     (st.overrideAttrs (oldAttrs: rec {

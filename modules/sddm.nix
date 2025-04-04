@@ -10,12 +10,6 @@
         enable = true;
         wayland.enable = false;
         theme = "${import ../themes/sddm/sddm-themes.nix { inherit pkgs; }}";
-        settings = {
-            Theme = {
-              CursorTheme = "Adwaita";
-              CursorSize = 24;
-            };
-        };
     };
   };
 
