@@ -9,12 +9,13 @@
     ./nix.nix
     ./timezone.nix
     ./sddm.nix
-    ./tlp.nix
     ./fonts.nix
     ./security.nix
     ./hardware.nix
     ./services/xorg.nix
     ./services/services.nix
+    ./services/systemd-timers.nix
+    ./services/tlp.nix
     ./programs.nix
     ./systemPkgs.nix
   ];
