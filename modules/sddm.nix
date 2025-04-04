@@ -23,7 +23,7 @@
     { manage = "desktop";
       name = "DWM";
       start = ''
-        exec ${pkgs.dwm}/bin/dwm
+        exec dwm
       '';
     }
   ]
