@@ -21,6 +21,15 @@
       dpi = 200;
       upscaleDefaultCursor = true;
       displayManager.startx.enable = true;
+      xrandrHeads = [
+        {
+          output = "eDP-1";
+          primary = true;
+          monitorConfig = ''
+DisplaySize 1920 1200
+'';
+        }
+      ];
     };
   };
 }

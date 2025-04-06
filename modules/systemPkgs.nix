@@ -12,6 +12,7 @@
     nix-prefetch-git
     jq
     wirelesstools
+    pavucontrol
     # Suckless Terminal
     xclip
     (st.overrideAttrs (oldAttrs: rec {
